@@ -3,8 +3,27 @@
 **Tema:** Aplicaciones e IAs para crear, generar y editar video — fáciles de usar, gratuitas o de bajo costo y con conexión a IA.
 
 ## Archivos
-- `Howy_Herramientas_IA_Video_2026.pptx` — Presentación final (PowerPoint, 16:9, 13 diapositivas).
-- `generar_presentacion.py` — Script que genera el `.pptx` (python-pptx).
+- `Howy_Herramientas_IA_Video_2026.pptx` — Presentación ejecutiva (PowerPoint, 16:9, 13 diapositivas).
+- `Howy_Guia_Detallada_IA_Video_2026.pptx` — **Guía para el equipo** (18 diapositivas): una ficha por herramienta (qué es, funciones gratis a explotar, para qué conviene y botón clicable al tutorial en video), más "cuáles convienen más" y "camino de uso recomendado".
+- `generar_presentacion.py` — Script que genera la presentación ejecutiva.
+- `generar_guia_detallada.py` — Script que genera la guía detallada.
+
+## Enlaces a tutoriales (video, en español)
+| Herramienta | Tutorial |
+|---|---|
+| CapCut | https://www.youtube.com/watch?v=e7zs-Tap9XY |
+| Canva | https://www.youtube.com/watch?v=3kDT54Kz9Dc |
+| Kling 3.0 | https://www.youtube.com/watch?v=m6zEjDALPqE |
+| Google Veo 3.1 | https://www.youtube.com/watch?v=k0r4vqjXwyU |
+| Runway Gen-4.5 | https://www.youtube.com/watch?v=FKvAPQjdp2g |
+| Descript | https://www.youtube.com/watch?v=pTHZ8hRUwzY |
+| DaVinci Resolve | https://www.youtube.com/watch?v=PtAxuOAQNcI |
+| HeyGen | https://www.youtube.com/watch?v=SiwJ4GJe4xY |
+| Synthesia | https://www.youtube.com/watch?v=r2FqQzGNUWg |
+| Pictory | https://www.youtube.com/watch?v=QQylZbgwyMk |
+| InVideo | https://www.youtube.com/watch?v=NwCf1MU1Wqs |
+| VEED | https://www.youtube.com/watch?v=MFllzKvqnCY |
+| OpusClip | https://www.youtube.com/watch?v=21QDrK4fYzk |
 
 ## Contenido (13 diapositivas)
 1. Portada
