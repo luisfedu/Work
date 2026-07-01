@@ -7,6 +7,8 @@
 - `Howy_Guia_Detallada_IA_Video_2026.pptx` — **Guía para el equipo** (18 diapositivas): una ficha por herramienta (qué es, funciones gratis a explotar, para qué conviene y botón clicable al tutorial en video), más "cuáles convienen más" y "camino de uso recomendado".
 - `generar_presentacion.py` — Script que genera la presentación ejecutiva.
 - `generar_guia_detallada.py` — Script que genera la guía detallada.
+- `Howy_Maquinaria_Aguacate_2026.pptx` — Investigación de maquinaria del proceso de aguacate (21 diapositivas) + `generar_maquinaria_aguacate.py`.
+- `Howy_Maquinaria_Nopal_2026.pptx` — Investigación de maquinaria del proceso de nopal/tuna con enfoque en réplica mexicana (22 diapositivas) + `generar_maquinaria_nopal.py`.
 
 ## Enlaces a tutoriales (video, en español)
 | Herramienta | Tutorial |
