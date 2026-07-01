@@ -9,6 +9,8 @@
 - `generar_guia_detallada.py` — Script que genera la guía detallada.
 - `Howy_Maquinaria_Aguacate_2026.pptx` — Investigación de maquinaria del proceso de aguacate (21 diapositivas) + `generar_maquinaria_aguacate.py`.
 - `Howy_Maquinaria_Nopal_2026.pptx` — Investigación de maquinaria del proceso de nopal/tuna con enfoque en réplica mexicana (22 diapositivas) + `generar_maquinaria_nopal.py`.
+- `ilustraciones.py` — Genera las ilustraciones esquemáticas (SVG→PNG) de cada máquina en `assets/img/`. Ejecutar antes de los generadores de maquinaria: `python3 ilustraciones.py`.
+- `assets/img/*.png` — Ilustraciones rotuladas incrustadas en las presentaciones de maquinaria.
 
 ## Enlaces a tutoriales (video, en español)
 | Herramienta | Tutorial |

@@ -5,6 +5,7 @@ Maquinaria del proceso de NOPAL y TUNA, con enfoque en RÉPLICA MEXICANA
 (componentes y proveedores nacionales vs. importar). Diseño Howy. PPTX 16:9.
 Fuentes: fabricantes mexicanos, portales (QuiMinet, MercadoLibre), datasheets, FAO/INIFAP.
 """
+import os
 from pptx import Presentation
 from pptx.util import Inches, Pt, Emu
 from pptx.dml.color import RGBColor
@@ -101,28 +102,52 @@ def chip(s, x, y, label, color, h=Inches(0.3), fs=10):
     return x + w + Inches(0.1)
 
 
-def machine_card(s, y, accent, name, country, funcion, specs, costo, mx, H=Inches(2.42)):
+_IMGDIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "assets", "img")
+_IMGMAP = [
+    ("Corte manual", "no_corte"), ("EPP y acarreo", "no_epp"),
+    ("Nopalli", "no_desespina"), ("Línea DESINOX", "no_desinox"),
+    ("cepillos/rodillos en seco", "no_tuna_brush"), ("Benchmark a NO importar", "no_agrilux"),
+    ("Lavadora por inmersión", "no_lav_inmersion"), ("Lavado por burbujas", "no_lav_burbujas"),
+    ("Picadora de nopal INALSA", "no_picadora"), ("Cortadora en cubos", "no_cortadora_cubos"),
+    ("Escaldadora", "no_escaldado"), ("Bandas y mesas", "no_bandas"),
+    ("Deshidratador de charolas", "no_deshid_charolas"), ("Deshidratador solar", "no_deshid_solar"),
+    ("Molino de martillos", "no_molino"), ("Tamizado", "no_tamizado"),
+    ("Despulpadora", "no_despulpadora"), ("valor agregado", "no_valor"),
+    ("Dosificadora de polvo", "no_dosificadora"), ("Empaque de nopal fresco", "no_map"),
+]
+def _img_for(name):
+    for k, v in _IMGMAP:
+        if k in name:
+            p = os.path.join(_IMGDIR, v + ".png")
+            return p if os.path.exists(p) else None
+    return None
+
+
+def machine_card(s, y, accent, name, country, funcion, specs, costo, mx, H=Inches(2.5)):
     X, W = Inches(0.78), Inches(11.78)
     LP = Inches(3.05)
     rounded(s, X, y, W, H, LIGHT)
     rounded(s, X, y, LP, H, accent, rad=0.05)
     rect(s, X + LP - Inches(0.14), y + Inches(0.02), Inches(0.14), H - Inches(0.04), accent)
-    txt(s, X + Inches(0.22), y + Inches(0.2), LP - Inches(0.42), Inches(1.1), [Pr(name, 15, WHITE, True)], ls=1.02)
-    txt(s, X + Inches(0.22), y + H - Inches(0.58), LP - Inches(0.42), Inches(0.4),
-        [[("● ", 10, WHITE, False, False), (country, 10.5, WHITE, False, False)]], anchor=MSO_ANCHOR.MIDDLE)
-    rx = X + LP + Inches(0.2); rw = Inches(8.25)
-    txt(s, rx, y + Inches(0.16), rw, Inches(0.24), [Pr("FUNCIÓN", 9.5, accent, True)])
-    txt(s, rx, y + Inches(0.4), rw, Inches(0.62), [Pr(funcion, 11.5, INK, False)], ls=1.05)
-    sy = y + Inches(1.06)
+    _p = _img_for(name)
+    if _p:
+        s.shapes.add_picture(_p, X + Inches(0.28), y + Inches(0.16), width=Inches(2.5), height=Inches(1.546))
+    txt(s, X + Inches(0.18), y + H - Inches(0.42), LP - Inches(0.3), Inches(0.32),
+        [[("● ", 9, WHITE, False, False), (country, 10, WHITE, False, False)]],
+        align=PP_ALIGN.CENTER, anchor=MSO_ANCHOR.MIDDLE)
+    rx = X + LP + Inches(0.22); rw = Inches(8.25)
+    txt(s, rx, y + Inches(0.14), rw, Inches(0.5), [Pr(name, 14, NAVY, True)], ls=1.0)
+    txt(s, rx, y + Inches(0.7), rw, Inches(0.5), [Pr(funcion, 11, INK, False)], ls=1.05)
+    sy = y + Inches(1.24)
     for sp_txt in specs[:3]:
         rounded(s, rx, sy + Inches(0.05), Inches(0.13), Inches(0.13), accent)
-        txt(s, rx + Inches(0.28), sy, rw - Inches(0.3), Inches(0.34), [Pr(sp_txt, 10.8, GRAY, False)],
+        txt(s, rx + Inches(0.28), sy, rw - Inches(0.3), Inches(0.32), [Pr(sp_txt, 10.5, GRAY, False)],
             anchor=MSO_ANCHOR.MIDDLE, ls=1.0)
-        sy += Inches(0.335)
-    by = y + H - Inches(0.44)
-    txt(s, rx, by, Inches(4.3), Inches(0.38), [[("Costo:  ", 10, accent, True, False), (costo, 10, INK, False, False)]],
+        sy += Inches(0.3)
+    by = y + H - Inches(0.32)
+    txt(s, rx, by, Inches(4.3), Inches(0.32), [[("Costo:  ", 10, accent, True, False), (costo, 10, INK, False, False)]],
         anchor=MSO_ANCHOR.MIDDLE, ls=1.0)
-    txt(s, rx + Inches(4.35), by, Inches(3.9), Inches(0.38),
+    txt(s, rx + Inches(4.35), by, Inches(3.9), Inches(0.32),
         [[("México:  ", 10, GREEN, True, False), (mx, 10, INK, False, False)]], anchor=MSO_ANCHOR.MIDDLE, ls=1.0)
 
 

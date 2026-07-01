@@ -5,6 +5,7 @@ Maquinaria del proceso de aguacate: cosecha, recepción, lavado, calibrado/selec
 empaque, paletizado y cadena de frío. Diseño corporativo Howy. Salida: PPTX 16:9.
 Fuentes: sitios de fabricantes, datasheets y documentos oficiales (2026).
 """
+import os
 from pptx import Presentation
 from pptx.util import Inches, Pt, Emu
 from pptx.dml.color import RGBColor
@@ -103,33 +104,56 @@ def chip(s, x, y, label, color, h=Inches(0.3), fs=10):
     return x + w + Inches(0.1)
 
 
-def machine_card(s, y, accent, name, country, funcion, specs, costo, proveedor, H=Inches(2.42)):
+_IMGDIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "assets", "img")
+_IMGMAP = [
+    ("Tijeras de cosecha", "av_tijeras"), ("Pértiga telescópica", "av_pertiga"),
+    ("Munckhof", "av_munckhof"), ("Revo Piuma", "av_revo"),
+    ("Bins plásticos", "av_bins"), ("Telehandler", "av_telehandler"),
+    ("ProFruit UNLOADER", "av_profruit"), ("Volteo suave", "av_volteo_suave"),
+    ("Túnel de lavado", "av_lavado"), ("Secado (air knife)", "av_secado"),
+    ("Copas basculantes", "av_copas"), ("Rodillos rotatorios", "av_rodillos"),
+    ("Visión externa", "av_vision"), ("Calidad interna NIR", "av_nir"),
+    ("Mesas de acumulación", "av_empaque"), ("Etiquetado PLU", "av_etiquetado"),
+    ("Embalaje: malla", "av_embalaje"), ("Paletizado robótico", "av_paletizado"),
+    ("Global Cooling", "av_preenfriado"), ("Otros preenfriadores", "av_preenf2"),
+    ("Cámara de refrigeración", "av_frio"), ("Atmósfera controlada", "av_ca"),
+    ("Generador de etileno", "av_etileno"), ("Cuartos de maduración", "av_madroom"),
+]
+def _img_for(name):
+    for k, v in _IMGMAP:
+        if k in name:
+            p = os.path.join(_IMGDIR, v + ".png")
+            return p if os.path.exists(p) else None
+    return None
+
+
+def machine_card(s, y, accent, name, country, funcion, specs, costo, proveedor, H=Inches(2.5)):
     X, W = Inches(0.78), Inches(11.78)
     LP = Inches(3.05)
     rounded(s, X, y, W, H, LIGHT)
     rounded(s, X, y, LP, H, accent, rad=0.05)
-    # tapa el redondeo derecho del panel izquierdo para que quede recto contra la tarjeta
     rect(s, X + LP - Inches(0.14), y + Inches(0.02), Inches(0.14), H - Inches(0.04), accent)
-    txt(s, X + Inches(0.22), y + Inches(0.2), LP - Inches(0.42), Inches(1.0),
-        [P(name, 15.5, WHITE, True)], ls=1.02)
-    txt(s, X + Inches(0.22), y + H - Inches(0.6), LP - Inches(0.42), Inches(0.4),
-        [[("● ", 10, WHITE, False, False), (country, 10.5, WHITE, False, False)]],
-        anchor=MSO_ANCHOR.MIDDLE)
-    rx = X + LP + Inches(0.2)
+    _p = _img_for(name)
+    if _p:
+        s.shapes.add_picture(_p, X + Inches(0.28), y + Inches(0.16), width=Inches(2.5), height=Inches(1.546))
+    txt(s, X + Inches(0.18), y + H - Inches(0.42), LP - Inches(0.3), Inches(0.32),
+        [[("● ", 9, WHITE, False, False), (country, 10, WHITE, False, False)]],
+        align=PP_ALIGN.CENTER, anchor=MSO_ANCHOR.MIDDLE)
+    rx = X + LP + Inches(0.22)
     rw = Inches(8.25)
-    txt(s, rx, y + Inches(0.16), rw, Inches(0.24), [P("FUNCIÓN", 9.5, accent, True)])
-    txt(s, rx, y + Inches(0.4), rw, Inches(0.62), [P(funcion, 11.5, INK, False)], ls=1.05)
-    sy = y + Inches(1.06)
+    txt(s, rx, y + Inches(0.14), rw, Inches(0.5), [P(name, 14, NAVY, True)], ls=1.0)
+    txt(s, rx, y + Inches(0.7), rw, Inches(0.5), [P(funcion, 11, INK, False)], ls=1.05)
+    sy = y + Inches(1.24)
     for sp_txt in specs[:3]:
         rounded(s, rx, sy + Inches(0.05), Inches(0.13), Inches(0.13), accent)
-        txt(s, rx + Inches(0.28), sy, rw - Inches(0.3), Inches(0.34),
-            [P(sp_txt, 10.8, GRAY, False)], anchor=MSO_ANCHOR.MIDDLE, ls=1.0)
-        sy += Inches(0.335)
-    by = y + H - Inches(0.44)
-    txt(s, rx, by, Inches(4.3), Inches(0.38),
+        txt(s, rx + Inches(0.28), sy, rw - Inches(0.3), Inches(0.32),
+            [P(sp_txt, 10.5, GRAY, False)], anchor=MSO_ANCHOR.MIDDLE, ls=1.0)
+        sy += Inches(0.3)
+    by = y + H - Inches(0.32)
+    txt(s, rx, by, Inches(4.3), Inches(0.32),
         [[("Costo:  ", 10, accent, True, False), (costo, 10, INK, False, False)]],
         anchor=MSO_ANCHOR.MIDDLE, ls=1.0)
-    txt(s, rx + Inches(4.35), by, Inches(3.9), Inches(0.38),
+    txt(s, rx + Inches(4.35), by, Inches(3.9), Inches(0.32),
         [[("Dónde:  ", 10, accent, True, False), (proveedor, 10, INK, False, False)]],
         anchor=MSO_ANCHOR.MIDDLE, ls=1.0)
 
